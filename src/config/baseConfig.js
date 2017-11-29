@@ -17,7 +17,7 @@ const BaseConfig = {
   },
   defaultUser: {
     id: '',
-    Token: '',
+    Token: '5a2d99849feb4d01909b81f675500726',
     hasPassword : '0',
     name: '佚名',
     phone: '',

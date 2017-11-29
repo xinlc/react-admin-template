@@ -1,20 +1,13 @@
 
-import BasicLayout from '../UserManagementApp/containers/Layouts/BasicLayout';
-import UserLayout from '../UserManagementApp/containers/Layouts/UserLayout';
-import Dashboard from '../UserManagementApp/containers/Dashboard';
-import UserLogin from '../UserManagementApp/containers/Auth/Login';
-import UserRegister from '../UserManagementApp/containers/Auth/Register';
-import RegisterResult from '../UserManagementApp/containers/Auth/RegisterResult';
-import ResultSuccess from '../UserManagementApp/containers/Result/Success';
-import ResultError from '../UserManagementApp/containers/Result/Error';
-import Exception403 from '../UserManagementApp/containers/Exception/403';
-import Exception404 from '../UserManagementApp/containers/Exception/404';
-import Exception500 from '../UserManagementApp/containers/Exception/500';
+import dynamic from '../lib/dynamic';
+
+// wrapper of dynamic
+const dynamicWrapper = component => dynamic({ component });
 
 // nav data
 export const getNavData = () => [
   {
-    component: BasicLayout,
+    component: dynamicWrapper(() => import('../UserManagementApp/containers/Layouts/BasicLayout')),
     layout: 'BasicLayout',
     name: '首页', // for breadcrumb
     path: '/',
@@ -27,7 +20,7 @@ export const getNavData = () => [
           {
             name: '首页',
             path: 'home',
-            component: Dashboard,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Dashboard')),
           },
         ],
       },
@@ -39,12 +32,12 @@ export const getNavData = () => [
           {
             name: '成功',
             path: 'success',
-            component: ResultSuccess,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Result/Success')),
           },
           {
             name: '失败',
             path: 'fail',
-            component: ResultError,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Result/Error')),
           },
         ],
       },
@@ -56,24 +49,24 @@ export const getNavData = () => [
           {
             name: '403',
             path: '403',
-            component: Exception403,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Exception/403')),
           },
           {
             name: '404',
             path: '404',
-            component: Exception404,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Exception/404')),
           },
           {
             name: '500',
             path: '500',
-            component: Exception500,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Exception/500')),
           },
         ],
       },
     ],
   },
   {
-    component: UserLayout,
+    component: dynamicWrapper(() => import('../UserManagementApp/containers/Layouts/UserLayout.js')),
     path: '/user',
     layout: 'UserLayout',
     children: [
@@ -85,17 +78,17 @@ export const getNavData = () => [
           {
             name: '登录',
             path: 'login',
-            component: UserLogin,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Auth/Login')),
           },
           {
             name: '注册',
             path: 'register',
-            component: UserRegister,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Auth/Register')),
           },
           {
             name: '注册结果',
             path: 'register-result',
-            component: RegisterResult,
+            component: dynamicWrapper(() => import('../UserManagementApp/containers/Auth/RegisterResult')),
           },
         ],
       },

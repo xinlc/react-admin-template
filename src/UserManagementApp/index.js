@@ -2,13 +2,21 @@ import React from 'react';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { Provider } from 'react-redux';
+import { LocaleProvider, Spin } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
 import createHistory from 'history/createBrowserHistory';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux';
 import BaseConfig from '../config/baseConfig';
 import routes from '../config/routes';
 import reducers from './reducers';
 import sagas from './services';
+import dynamic from '../lib/dynamic';
+import styles from '../index.less';
 // import { initUser } from './actions/user';
+
+dynamic.setDefaultLoadingComponent(() => {
+  return <Spin size="large" className={styles.globalSpin} />;
+});
 
 const middlewares = [];
 
@@ -54,11 +62,13 @@ sagaMiddleware.run(sagas);
 // Render the main component into the dom
 export default () => {
   return (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
-        {routes}
-      </ConnectedRouter>
-    </Provider>
+    <LocaleProvider locale={zhCN}>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          {routes}
+        </ConnectedRouter>
+      </Provider>
+    </LocaleProvider>
   );
 };
 
